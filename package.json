@@ -6,6 +6,6 @@
         "@apst/oxlint": "~0.4.0",
         "oxfmt": "~0.60.0",
         "oxlint": "^1.74.0",
-        "oxlint-tsgolint": "~0.25.0"
+        "oxlint-tsgolint": "~7.0.2001"
     }
 }
