@@ -4,7 +4,7 @@
     "devDependencies": {
         "@apst/oxfmt": "~0.2.0",
         "@apst/oxlint": "~0.4.0",
-        "oxfmt": "~0.59.0",
+        "oxfmt": "~0.60.0",
         "oxlint": "^1.74.0",
         "oxlint-tsgolint": "~0.25.0"
     }
