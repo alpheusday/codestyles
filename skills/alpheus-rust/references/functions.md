@@ -63,14 +63,69 @@ impl Default for Something {
 
 ## Organization within a File
 
-Helpers first, primary exported function last. The functions being used by another have higher priority in the file.
+File flow, top to bottom: `use` statements, then items in dependency order, then an optional `#[cfg(test)] mod tests` (always last).
+
+Dependency-first: a callee appears before its caller. The functions being used by another have higher priority in the file.
+
+When two items have no dependency between them, break the tie by visibility: private first, then `pub(crate)`, then `pub`.
+
+An item's supporting types appear immediately before the item that uses them. If item `X` depends on item `Y`, `X`'s section comes after `Y`'s section.
 
 ```rust
-fn helper_a() -> u32 { /* ... */ }
+struct BOptions { /* ... */ }
 
-fn helper_b() -> u32 { helper_a() }
+fn normalize(options: &BOptions) -> u32 { /* ... */ }
 
-pub fn main_fn() -> u32 { helper_b() }
+fn b(options: &BOptions) -> u32 { normalize(options) }
+
+struct Report { /* ... */ }
+
+pub fn a() -> Report { /* ... */ }
+```
+
+Per type block: `trait` first, then `struct`, then inherent `impl`, then trait `impl`(s).
+
+Within an inherent `impl`: `new` (if present) may lead, then private helper methods, then public methods — each group in dependency order.
+
+```rust
+struct ResponseConfig {
+    pretty: bool,
+}
+
+pub struct JsonResponse<D> {
+    data: Option<D>,
+    config: ResponseConfig,
+}
+
+impl<D> JsonResponse<D> {
+    pub fn new() -> Self { /* ... */ }
+
+    fn etag(&self) -> String { /* ... */ }
+
+    fn format_errors(&self) -> Vec<String> { /* ... */ }
+
+    pub fn render(&self) -> String { /* ... */ }
+}
+```
+
+Within a trait `impl`, methods mirror the trait declaration order — never alphabetical.
+
+```rust
+trait Validate {
+    fn name(&self) -> &str;
+
+    fn strictness(&self) -> u8;
+
+    fn validate(&self) -> bool;
+}
+
+impl Validate for Report {
+    fn name(&self) -> &str { /* ... */ }
+
+    fn strictness(&self) -> u8 { /* ... */ }
+
+    fn validate(&self) -> bool { /* ... */ }
+}
 ```
 
 ## See Also

@@ -42,7 +42,7 @@ pub(crate) const UTOIPA: bool = false;
 
 ## Anti-Patterns
 
-- `self::` / `super::` — use `crate::`
+- `self::` / `super::` — use `crate::` (except `use super::*;` in inline `#[cfg(test)] mod tests`)
 - `mod.rs`-less directories — `mod.rs` everywhere
 - `.unwrap()` in library code that can fail — only in tests or impossible cases
 - `extern crate` (edition 2024)

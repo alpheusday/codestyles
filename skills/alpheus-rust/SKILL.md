@@ -9,9 +9,9 @@ description: Use when writing or editing Rust code to enforce Alpheus coding sty
 
 - use snake_case directories and files; `mod.rs` in every directory-module
 - imports grouped `std` → external → `crate::`, one crate per `use`, blank-line separated
-- use `crate::` for all intra-crate paths, never `self::` or `super::`
+- use `crate::` for all intra-crate paths, never `self::` or `super::` (except `use super::*;` in inline `#[cfg(test)] mod tests`)
 - prefer to annotate every local explicitly, even when inferable
-- prefer to do testing in a separate workspace member
+- prefer a separate test workspace member; inline `#[cfg(test)] mod tests` allowed per repo
 - `.unwrap()` only in tests, avoid in fallible library code
 
 These rules are enforced by the code. Violating the letter is violating the spirit.

@@ -57,6 +57,40 @@ describe("resolveOptions", (): void => {
 });
 ```
 
+## Test Layout
+
+- group tests by the unit under test: one `describe("<unit>", ...)` block per unit
+
+- order the `describe` blocks by each unit's position in the source file (dependency order — see `./functions.md`): if the source defines `normalize` before `buildReport`, the `normalize` describe block comes first
+
+- within each `describe`, simple `it` tests come before complex ones:
+    - simple: single concept, minimal setup, few assertions
+    - complex: multiple concepts, multi-step fixture, many assertions
+
+```ts
+import { describe, expect, it } from "vitest";
+
+describe("normalize", (): void => {
+    it("trims and lowercases", (): void => {
+        // simple: one concept, one assertion
+    });
+
+    it("normalizes multi-word unicode input", (): void => {
+        // complex: multi-step fixture
+    });
+});
+
+describe("buildReport", (): void => {
+    it("wraps a normalized value", (): void => {
+        // simple
+    });
+
+    it("runs the full pipeline", (): void => {
+        // complex: several steps, many assertions
+    });
+});
+```
+
 ## See Also
 
 - Structure: [`structure.md`](./structure.md)

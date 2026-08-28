@@ -31,7 +31,7 @@ use xxx::{
 
 ### `crate::` Always
 
-Use `crate::` for all intra-crate paths. Never `self::` or `super::`.
+Use `crate::` for all intra-crate paths. Never `self::` or `super::` — except `use super::*;` inside `#[cfg(test)] mod tests`, the single allowed exception.
 
 ```rust
 // ✓

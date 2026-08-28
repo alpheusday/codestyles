@@ -37,17 +37,11 @@ type Options = Format<Partial<CompleteOptions>>;
 For engines with multiple option sources, decompose into layers and intersect:
 
 ```ts
-type PresetOptions = {
-    /* engine-supplied */
-};
+type PresetOptions = {/* engine-supplied */};
 
-type UserOptions = {
-    /* user-supplied, readonly */
-};
+type UserOptions = {/* user-supplied, readonly */};
 
-type DynamicOptions = {
-    /* per-call */
-};
+type DynamicOptions = {/* per-call */};
 
 type Options = Format<PresetOptions & UserOptions & DynamicOptions>;
 ```
