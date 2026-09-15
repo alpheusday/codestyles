@@ -85,15 +85,13 @@ The `test/` or `tests/<name>/` member is a binary crate (`publish = false`) that
 
 ## Module Declarations in `lib.rs`
 
-Bare `pub mod` declarations, each on its own line, separated by blank lines.
+Bare `pub mod` declarations, each on its own line, consecutive with no blank lines between them.
 
 For example, `crate/src/lib.rs`:
 
 ```rust
 pub mod extract;
-
 pub mod layers;
-
 pub mod response;
 ```
 
